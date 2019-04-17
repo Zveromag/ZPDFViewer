@@ -1,10 +1,10 @@
-# PDFViewer
+# ZPDFViewer
 
 ## Description
 
 This plugin allows you to view PDF files in photo gallery mode. The file is displayed using standard browser tools. Insertion occurs through the use of an iframe.
 
-## Init
+## Initialization
 
 ````javaScript
 new ZPDFViewer();
