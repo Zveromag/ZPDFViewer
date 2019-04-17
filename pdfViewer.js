@@ -49,6 +49,7 @@
     this.navigate = this.navigate.bind(this);
     this.create = this.create.bind(this);
     this.reload = this.reload.bind(this);
+    this.keypress = this.keypress.bind(this);
 
     this.option = extend(ZPDFViewer.settings, options);
 
@@ -58,6 +59,7 @@
   ZPDFViewer.settings = {
     arrows: true,
     keyboard: true,
+    loop: true,
     onChange: function () { }
   }
 
@@ -121,6 +123,8 @@
       this.control = this.mainWindow.querySelector('.ZPDF-Viewer__navigation');
       this.control.addEventListener('click', this.navigate);
     }
+
+    document.addEventListener('keyup', this.keypress);
   }
 
   ZPDFViewer.prototype.show = function(index) {
@@ -138,10 +142,7 @@
 
     self.frame.className = 'ZPDF-Viewer__frame';
     self.frame.src = self.album[self.currentFile]['href'];
-    self.frame.allowfullscreen = true;
-    self.frame.width = 400;
-    self.frame.height = 100;
-    
+    self.frame.allowfullscreen = true;    
     self.fileWrap.style.opacity = 0;
     self.fileWrap.appendChild(self.frame);
 
@@ -153,6 +154,22 @@
     document.body.appendChild(this.mainWindow);
 
     this.close.addEventListener('click', this.closeWindow);
+  }
+
+  ZPDFViewer.prototype.keypress = function(e) {
+    var key = e.which;
+   
+    if(key === 27) {
+      this.closeWindow();
+    }
+    if(this.option.keyboard) {
+      if(key === 37) {
+        this.prev();
+      }
+      if(key === 39) {
+        this.next();
+      }
+    }
   }
 
   ZPDFViewer.prototype.reload = function(index) {
@@ -168,11 +185,12 @@
 
   ZPDFViewer.prototype.close = function(e) {
     this.close.removeEventListener('click', this.closeWindow);
+
     if (this.album.length > 1 && this.option.arrows) {
       this.control.removeEventListener('click', this.move);
     }
     if (this.option.keyboard) {
-      document.body.removeEventListener('keyup', this.keyEvents);
+      document.body.removeEventListener('keyup', this.keypress);
     }
 
     //remove vars
@@ -196,7 +214,12 @@
 
   ZPDFViewer.prototype.prev = function(e) {
     if(this.currentFile <= 0) {
-      this.currentFile = 0;
+      if(this.option.loop) {
+        this.currentFile = this.album.length - 1;
+      }
+      else {
+        this.currentFile = 0;
+      }
     }
     else {
       this.currentFile--;
@@ -206,7 +229,17 @@
   }
 
   ZPDFViewer.prototype.next = function(e) {
-    this.currentFile = (this.currentFile + 1) % this.album.length
+    if(this.currentFile >= this.album.length - 1) {
+      if(this.option.loop) {
+        this.currentFile = 0;
+      }
+      else {
+        this.currentFile = this.album.length - 1;
+      }
+    }
+    else {
+      this.currentFile++;
+    }
 
     this.show(this.currentFile);
   }
