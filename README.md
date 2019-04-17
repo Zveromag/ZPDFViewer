@@ -29,6 +29,9 @@ arrows: true
 //Use keyboard to navigate
 keyboard: true
 
+//Use carousel mode
+loop: true
+
 //Callback when selecting an item
 onChange: function () { }
 ````
