@@ -33,5 +33,5 @@ keyboard: true
 loop: true
 
 //Callback when selecting an item
-onChange: function () { }
+onChange: function (item, itemIndex) { }
 ````

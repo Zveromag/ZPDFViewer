@@ -60,20 +60,22 @@
     arrows: true,
     keyboard: true,
     loop: true,
-    onChange: function () { }
+    onChange: function() {
+
+    }
   }
 
   ZPDFViewer.prototype.init = function(e) { 
-    var target = e.target.closest('[data-pdf-viewer]');
+    this.target = e.target.closest('[data-pdf-viewer]');
     
-    if (!target) return;
+    if (!this.target) return;
     
     e.preventDefault();
 
-    var link = target.href;
-    var group = target.dataset.viewerGroup;
+    var link = this.target.href;
+    var group = this.target.dataset.viewerGroup;
     if(group === '' || group === 'single') {
-      var allLinks = [target];
+      var allLinks = [this.target];
     }
     else {
       var allLinks = [].slice.call(document.querySelectorAll('[data-viewer-group="'+ group +'"]'));
@@ -154,6 +156,8 @@
     document.body.appendChild(this.mainWindow);
 
     this.close.addEventListener('click', this.closeWindow);
+
+    this.option.onChange(self.target, self.currentFile);
   }
 
   ZPDFViewer.prototype.keypress = function(e) {
@@ -181,6 +185,8 @@
     this.frame.addEventListener('load', function(e) {
       self.fileWrap.style.opacity = 1;
     })
+
+    this.option.onChange(self.target, self.currentFile);
   }
 
   ZPDFViewer.prototype.close = function(e) {

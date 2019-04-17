@@ -67,6 +67,10 @@
 
 <script src="pdfViewer.js"></script>
 <script>
-  new ZPDFViewer();
+  new ZPDFViewer({
+    onChange: function(item, index) {
+      console.log(item, index);
+    }
+  });
 </script>
 </html>
