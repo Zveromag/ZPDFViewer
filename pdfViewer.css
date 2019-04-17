@@ -1,0 +1,127 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+.ZPDF-Viewer * {
+  margin: 0;
+  padding: 0;
+}
+.ZPDF-Viewer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+.ZPDF-Viewer button {
+  outline: none;
+}
+.ZPDF-Viewer__body {
+  width: 100%;
+  position: relative;
+}
+.ZPDF-Viewer__icon-close {
+  position: absolute;
+  z-index: 10;
+  background: none;
+  border: 0;
+  top: 65px;
+  right: 30px;
+  cursor: pointer;
+  height: 60px;
+  width: 60px;
+}
+.ZPDF-Viewer__icon-close svg {
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: inherit;
+  height: inherit;
+  fill: #fff;
+}
+.ZPDF-Viewer__preload {
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:100px;
+  height:100px;
+}
+.ZPDF-Viewer__preload hr{border:0;
+  margin:0;
+  width:40%;
+  height:40%;
+  position:absolute;
+  border-radius:50%;
+  animation:spin 2s ease infinite
+}
+.ZPDF-Viewer__preload hr:first-child{
+  background:#19A68C;
+  animation-delay:-1.5s
+}
+.ZPDF-Viewer__preload hr:nth-child(2){
+  background:#F63D3A;
+  animation-delay:-1s
+}
+.ZPDF-Viewer__preload hr:nth-child(3){
+  background:#FDA543;
+  animation-delay:-0.5s
+}
+.ZPDF-Viewer__preload hr:last-child{
+  background:#193B48
+}
+
+@keyframes spin{
+  0%,100%{transform:translate(0)}
+  25%{transform:translate(160%)}
+  50%{transform:translate(160%, 160%)}
+  75%{transform:translate(0, 160%)}
+}
+.ZPDF-Viewer__title {
+  position: absolute;
+}
+.ZPDF-Viewer__navigation {
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  top: 50%;
+  margin-top: -30px;
+}
+.ZPDF-Viewer__arrow {
+  width: 60px;
+  height: 60px;
+  background: none;
+  border: 0;
+  z-index: 1;
+  cursor: pointer;
+  position: absolute;
+}
+.ZPDF-Viewer__arrow svg {
+  display: block;
+  padding: 0;
+  margin: 0;
+  width: inherit;
+  height: inherit;
+  fill: #fff;
+}
+.ZPDF-Viewer__arrow-prev {
+  left: 15px;
+}
+.ZPDF-Viewer__arrow-next {
+  transform: rotate(180deg);
+  right: 15px;
+}
+.ZPDF-Viewer__file-wrap {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+.ZPDF-Viewer__frame {
+  width: inherit;
+  height: inherit;
+}
